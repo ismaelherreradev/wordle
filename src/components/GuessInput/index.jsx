@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function GuessInput({ handleSubmitGuess }) {
+export default function GuessInput({ handleSubmitGuess, gameStatus }) {
   const [tentativeGuess, setTentativeGuess] = useState("");
 
   const handleSubmit = (event) => {
@@ -21,11 +21,13 @@ export default function GuessInput({ handleSubmitGuess }) {
       <label htmlFor="guess-input">Enter Guess</label>
       <input
         required
+        disabled={gameStatus !== "running"}
         minLength={5}
         maxLength={5}
         value={tentativeGuess}
         onChange={(event) => {
-          setTentativeGuess(event.target.value);
+          const nextGuess = event.target.value.toLocaleUpperCase();
+          setTentativeGuess(nextGuess);
         }}
         type="text"
         id="guess-input"
@@ -33,3 +35,4 @@ export default function GuessInput({ handleSubmitGuess }) {
     </form>
   );
 }
+  
